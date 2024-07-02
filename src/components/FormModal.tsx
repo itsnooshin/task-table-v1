@@ -1,25 +1,68 @@
 import React, { useState } from "react";
-import { Button, Divider, Modal, Typography } from "antd";
-import { Tabs } from "antd";
-import FormItem from "antd/es/form/FormItem";
-import FormTabs from "./FormTab";
+import Styles from "../app/page.module.css";
+
+import { message } from "antd";
+import {
+  Button,
+  Divider,
+  Form,
+  Input,
+  Modal,
+  Select,
+  Typography,
+  Tabs,
+} from "antd";
+import TextArea from "antd/es/input/TextArea";
+import type { InputNumberProps } from "antd";
+import type { SelectProps } from "antd";
 const { Text } = Typography;
+
 const App = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
+
   const showModal = () => {
     setOpen(true);
   };
-  const handleOk = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+
+  const handleOk = async () => {
+    try {
+      await form.validateFields();
+
+      setLoading(true);
       setOpen(false);
-    }, 3000);
+
+      setTimeout(() => {
+        setLoading(false);
+        messageApi.success("اعتبارسنجی کامل شد! فرم آماده ارسال است.");
+        form.resetFields();
+      });
+    } catch (errorInfo) {
+      console.log("Failed:", errorInfo);
+    }
   };
+
   const handleCancel = () => {
     setOpen(false);
   };
+
+  const options: SelectProps["options"] = [
+    { value: "کیف پول اصلی", label: "کیف پول اصلی" },
+    { value: "کیف پول اختیاری", label: "کیف پول اختیاری" },
+    { value: "کیف پول تسویه", label: "کیف پول تسویه" },
+  ];
+
+  const onChange: InputNumberProps["onChange"] = (value) => {
+    console.log("changed", value);
+  };
+
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
   return (
     <>
       <Button type="primary" onClick={showModal}>
@@ -45,12 +88,12 @@ const App = () => {
           </div>
         }
         onOk={handleOk}
-        // onCancel={handleCancel}
+        onCancel={handleCancel}
         footer={[
           <Button
             key="back"
             onClick={handleCancel}
-            style={{ marginRight: "10px" , marginBottom  :'20px' }}
+            style={{ marginRight: "10px", marginBottom: "20px" }}
           >
             انصراف
           </Button>,
@@ -63,7 +106,6 @@ const App = () => {
           >
             ثبت درخواست تسویه
           </Button>,
-          ,
         ]}
       >
         <div
@@ -89,10 +131,110 @@ const App = () => {
               ریال
             </Typography>
           </div>
-          <FormTabs />
+          <Tabs
+            defaultActiveKey="1"
+            type="card"
+            style={{ border: "none" }}
+            tabBarStyle={{ border: "none" }}
+            tabBarGutter={0}
+          >
+            <Tabs.TabPane tab="به حساب" key="1">
+              <Form
+                form={form}
+                name="validateOnly"
+                layout="vertical"
+                autoComplete="off"
+              >
+                <Form.Item
+                  name="destination"
+                  label="مقصد تسویه"
+                  rules={[
+                    {
+                      required: true,
+                      message: "لطفا یک ایتم را انتخاب کنید",
+                    },
+                  ]}
+                >
+                  <Select
+                    style={{ width: "100%" }}
+                    placeholder="انتخاب شماره شبا یا ورود شبا جدید"
+                    onChange={handleChange}
+                    options={options}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="amount"
+                  label="مبلغ تسویه"
+                  rules={[
+                    {
+                      required: true,
+                      message: "لطفا مبلغ تسویه رو وارد کنید",
+                    },
+                  ]}
+                >
+                  <Input suffix="ریال" type="number" />
+                </Form.Item>
+                <Form.Item name="description" label=" توضیحات (بابت)">
+                  <TextArea maxLength={100} />
+                </Form.Item>
+              </Form>
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="به کیف پول" key="2">
+              <Form
+                form={form}
+                name="validateOnly"
+                layout="vertical"
+                autoComplete="off"
+              >
+                <Form.Item
+                  name="destinationWallet"
+                  label="مقصد تسویه"
+                  rules={[
+                    {
+                      required: true,
+                      message: "لطفا یک ایتم را انتخاب کنید",
+                    },
+                  ]}
+                >
+                  <Select
+                    style={{ width: "100%" }}
+                    placeholder="انتخاب شماره شبا یا ورود شبا جدید"
+                    onChange={handleChange}
+                    options={options}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="amountWallet"
+                  label="مبلغ تسویه"
+                  rules={[
+                    {
+                      required: true,
+                      message: "لطفا مبلغ تسویه رو وارد کنید",
+                    },
+                  ]}
+                >
+                  <Input suffix="ریال" />
+                </Form.Item>
+                <Form.Item
+                  name="descriptionWallet"
+                  label=" توضیحات (بابت)"
+                  rules={[
+                    {
+                      required: true,
+                      message: "لطفافیلد توضیحات رو پر کنید",
+                    },
+                  ]}
+                >
+                  <TextArea maxLength={100} />
+                </Form.Item>
+              </Form>
+            </Tabs.TabPane>
+          </Tabs>
         </div>
       </Modal>
+      {contextHolder}
     </>
   );
 };
+
 export default App;

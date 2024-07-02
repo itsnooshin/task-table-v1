@@ -52,4 +52,13 @@
   padding: 16px;
 }
 
-
+.toastMessage {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;
+}

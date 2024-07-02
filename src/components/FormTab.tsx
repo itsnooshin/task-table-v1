@@ -1,20 +1,18 @@
 import React from "react";
 import { Form, Input, Tabs } from "antd";
 import type { InputNumberProps } from "antd";
+import type { SelectProps } from "antd";
 import { InputNumber, Space } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Flex } from "antd";
 const { TextArea } = Input;
 import { Select } from "antd";
-import type { SelectProps } from "antd";
 
-const options: SelectProps["options"] = [];
-for (let i = 0; i < 5; i++) {
-  options.push({
-    value: i.toString(5) + i,
-    label: i.toString(5) + i,
-  });
-}
+const options: SelectProps["options"] = [
+  { value: "کیف پول اصلی", label: "کیف پول اصلی" },
+  { value: "کیف پول اختیاری", label: "کیف پول اختیاری" },
+  { value: "کیف پول تسویه", label: "کیف پول تسویه" },
+];
 
 const onChange: InputNumberProps["onChange"] = (value) => {
   console.log("changed", value);
@@ -53,20 +51,15 @@ const FormTabs = () => (
             </Form.Item>
             <Form.Item
               name="name"
+              
               label="مبلغ تسویه"
               rules={[
                 { required: true, message: "لطفا مبلغ تسویه رو وارد کنید" },
               ]}
             >
-              <Input suffix="ریال" />
+              <Input suffix="ریال" type="number" />
             </Form.Item>
-            <Form.Item
-              name="name"
-              label=" توضحیات (بابت)"
-              rules={[
-                { required: true, message: "لطفافیلد توضیحات رو پر کنید" },
-              ]}
-            >
+            <Form.Item name="fild" label=" توضحیات (بابت)">
               <TextArea maxLength={100} />
             </Form.Item>
           </Form>
@@ -102,7 +95,7 @@ const FormTabs = () => (
               <Input suffix="ریال" />
             </Form.Item>
             <Form.Item
-              name="name"
+              name="gilrd"
               label=" توضحیات (بابت)"
               rules={[
                 { required: true, message: "لطفافیلد توضیحات رو پر کنید" },
