@@ -5,3 +5,34 @@
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
 }
+
+.copyIcon {
+  display: flex;
+  gap: 5px;
+}
+.payment {
+  display: flex;
+  gap: 5px;
+}
+.cartNumber {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.status {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.statusIndicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+}
+.statusIndicator.active {
+  background: #72c23f;
+}
+.statusIndicator.inactive {
+  background: #d90429;
+}

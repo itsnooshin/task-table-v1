@@ -1,9 +1,12 @@
 "use client";
-
 import { CopyOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import React from "react";
-import styles from "../../src/app/page.module.css";
+import styles from "@/app/page.module.css";
+import IconBank from "@/components/IconBank";
+
+import { Typography } from "antd";
+const { Text } = Typography;
 
 const data = [
   {
@@ -174,60 +177,7 @@ const columns = [
     dataIndex: "trackId",
     key: "trackId",
     render: (text: string) => (
-      <span className="numeric-font" style={{ display: "flex", gap: "5px" }}>
-        {text}
-        <CopyOutlined style={{ color: "#3D3ADD" }} />
-      </span>
-    ),
-  },
-  {
-    title: "وضعیت پرداخت",
-    dataIndex: "status",
-    key: "status",
-    render: (status: number) => (
-      <span
-        className="numeric-font"
-        style={{ display: "flex", alignItems: "center", gap: "3px" }}
-      >
-        <p
-          style={{
-            width: "10px",
-            height: "10px",
-            borderRadius: "50%",
-            background: status === 1 ? "#72C23F" : "#d90429",
-            display: "block",
-          }}
-        ></p>
-        {status === 1 ? "پرداخت موفق" : "پرداخت ناموفق"}
-      </span>
-    ),
-  },
-  {
-    title: "تاریخ پرداخت",
-    dataIndex: "paidAt",
-    key: "paidAt",
-    render: (text: string) => <span className="numeric-font">{text}</span>,
-  },
-  {
-    title: "مبلغ",
-    dataIndex: "amount",
-    key: "amount",
-    render: (text: string) => (
-      <span className="numeric-font">{text.toLocaleString()}ریال</span>
-    ),
-  },
-  {
-    title: "شماره کارت",
-    dataIndex: "cardNumber",
-    key: "cardNumber",
-    render: (text: string) => (
-      <span
-        className="numeric-font"
-        style={{ display: "flex", alignItems: "center", gap: "10px" }}
-      >
-        {text}
-        {/* <IconBank /> */}
-      </span>
+      <span style={{ fontFamily :'', display: "flex", gap: "5px" }}>{text}</span>
     ),
   },
 ];
@@ -235,7 +185,7 @@ const columns = [
 export default function DataTable() {
   return (
     <div className={styles.Container}>
-      <Table dataSource={data} columns={columns} />
+      <Table pagination = {false} dataSource={data} columns={columns} className={styles.TableFont} />
     </div>
   );
 }
