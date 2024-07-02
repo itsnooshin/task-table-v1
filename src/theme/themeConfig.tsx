@@ -29,6 +29,8 @@ const dana = localFont({
 });
 
 const themeConfig: ThemeConfig = {
+  cssVar: true,
+  hashed: false,
   token: {
     colorPrimary: "#3A3AE4",
     colorError: "#B81F1E",
@@ -45,10 +47,23 @@ const themeConfig: ThemeConfig = {
       titleMarginBottom: 0,
       fontFamily: dana.style.fontFamily,
     },
+    Tabs: {
+      colorBorder: "white",
+      itemActiveColor: "white",
+      itemSelectedColor: "#ffff",
+      colorBgContainer: "#3A3AE4",
+      colorFillAlter: "white",
+      colorBorderBg: "red",
+      borderRadius: 0,
+      borderRadiusLG: 0,
+    },
     Table: {
       colorText: "#000000",
       headerBg: "#F0F0F0",
       fontFamily: dana.style.fontFamily,
+    },
+    Modal: {
+      contentPadding: 0,
     },
   },
 };

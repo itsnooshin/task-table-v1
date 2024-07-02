@@ -3,12 +3,12 @@
 import React, { useRef, useState } from "react";
 import { SearchOutlined, CopyOutlined } from "@ant-design/icons";
 import { Table, Input, Button, Space, Typography, InputRef } from "antd";
-
 import Highlighter from "react-highlight-words";
 import styles from "@/app/page.module.css";
 import { DisplayPersianDate } from "@/utilities/displayPersianDate";
-import CopyIcon from "./copyIcon";
 import IconBank from "./IconBank";
+import { ColumnsType } from "antd/es/table";
+import FormModal from "./FormModal";
 
 interface DataType {
   key: string;
@@ -18,6 +18,9 @@ interface DataType {
   amount: number;
   cardNumber: string;
 }
+
+type CustomColumnType = ColumnType<DataType> &
+  ReturnType<typeof getColumnSearchProps>;
 
 const data: DataType[] = [
   {
@@ -282,15 +285,15 @@ const DataTable = () => {
       ),
   });
 
-  const columns: (ColumnGroupType<DataType> | ColumnType<DataType>)[] = [
+  const columns = [
     {
       title: "شماره تراکنش",
       dataIndex: "trackId",
       key: "trackId",
       ...getColumnSearchProps("trackId"),
-      render: (text: string) => (
+      render: (text: number) => (
         <span className={styles.copyIcon}>
-          {text}
+          {text.toString()}
           <CopyOutlined style={{ color: "#3D3ADD" }} />
         </span>
       ),
@@ -362,9 +365,12 @@ const DataTable = () => {
         className={styles.TableFont}
         onChange={handleTableChange}
       />
-      <Typography className={styles.result}>
-        تعداد نتایج : {filteredDataCount}
-      </Typography>
+      <div className={styles.containerModal}>
+        <Typography className={styles.result}>
+          تعداد نتایج : {filteredDataCount}
+        </Typography>
+        <FormModal />
+      </div>
     </div>
   );
 };

@@ -5,3 +5,10 @@ span {
 .even-row {
   background-color: #fafafa;
 }
+
+.ant-tabs-top > .ant-tabs-nav::before,
+.ant-tabs-bottom > .ant-tabs-nav::before,
+.ant-tabs-top > div > .ant-tabs-nav::before,
+.ant-tabs-bottom > div > .ant-tabs-nav::before {
+  left: none;
+}
