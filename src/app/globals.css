@@ -1,0 +1,7 @@
+span {
+  white-space: nowrap;
+  overflow: hidden;
+}
+.even-row {
+  background-color: #fafafa;
+}

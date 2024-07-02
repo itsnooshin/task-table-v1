@@ -1,11 +1,13 @@
 "use client";
-import { CopyOutlined } from "@ant-design/icons";
+
 import { Table } from "antd";
 import React from "react";
 import styles from "@/app/page.module.css";
-import IconBank from "@/components/IconBank";
-
+import { CopyOutlined } from "@ant-design/icons";
+import { DisplayPersianDate } from "@/utilities/displayPersianDate";
 import { Typography } from "antd";
+import CopyIcon from "./copyIcon";
+import IconBank from "./IconBank";
 const { Text } = Typography;
 
 const data = [
@@ -177,7 +179,55 @@ const columns = [
     dataIndex: "trackId",
     key: "trackId",
     render: (text: string) => (
-      <span style={{ fontFamily :'', display: "flex", gap: "5px" }}>{text}</span>
+      <span className={styles.copyIcon}>
+        {text}
+        <CopyOutlined style={{ color: "#3D3ADD" }} />
+      </span>
+    ),
+  },
+  {
+    title: "وضعیت پرداخت",
+    dataIndex: "status",
+    key: "status",
+    render: (status: number) => (
+      <span className={styles.status}>
+        <p
+          className={`${styles.statusIndicator} ${
+            status === 1 ? styles.active : styles.inactive
+          }`}
+        ></p>
+        {status === 1 ? "پرداخت موفق" : "پرداخت ناموفق"}
+      </span>
+    ),
+  },
+  {
+    title: "تاریخ پرداخت",
+    dataIndex: "paidAt",
+    key: "paidAt",
+    render: (text: string) => (
+      <span className={styles.paidAt}>{DisplayPersianDate(text)}</span>
+    ),
+  },
+  {
+    title: "مبلغ",
+    dataIndex: "amount",
+    key: "amount",
+    render: (text: string) => (
+      <span className="numeric-font">{text.toLocaleString()}ریال</span>
+    ),
+  },
+  {
+    title: "شماره کارت",
+    dataIndex: "cardNumber",
+    key: "cardNumber",
+    render: (text: string) => (
+      <span
+        className="numeric-font"
+        style={{ display: "flex", alignItems: "center", gap: "10px" }}
+      >
+        {text}
+        <IconBank width="40" height="40" />
+      </span>
     ),
   },
 ];
@@ -185,7 +235,16 @@ const columns = [
 export default function DataTable() {
   return (
     <div className={styles.Container}>
-      <Table pagination = {false} dataSource={data} columns={columns} className={styles.TableFont} />
+      <Table
+        rowClassName={(record, index) => (index % 2 === 1 ? "even-row" : "")}
+        pagination={false}
+        dataSource={data}
+        columns={columns}
+        className={styles.TableFont}
+      />
+      <Typography className={styles.result}>
+        تعداد نتایج : {data.length}
+      </Typography>
     </div>
   );
 }

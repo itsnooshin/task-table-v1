@@ -23,16 +23,31 @@
   display: flex;
   align-items: center;
   gap: 3px;
+  width: 100%;
 }
 .statusIndicator {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   display: block;
+}
+
+@media (max-width: 600px) {
+  .statusIndicator {
+    width: 10px;
+    height: 10px;
+  }
+  .status {
+    font-size: 0.9rem;
+  }
 }
 .statusIndicator.active {
   background: #72c23f;
 }
 .statusIndicator.inactive {
   background: #d90429;
+}
+
+.result {
+  padding: 16px;
 }
