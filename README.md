@@ -1,48 +1,54 @@
 # Task Project
 
-Welcome to the Wallet Settlement Project! This project is designed to manage and track payment transactions and settlements in a user-friendly interface.
+This project shows a data table using Ant Design, and it includes a modal for handling payments.
 
 ## Features
 
 - Display a list of payment transactions with details.
 - Search functionality to find specific transactions.
 - Modal for settling wallet funds to accounts or other wallets.
-- Real-time status updates of transactions.
+
+
+## Built With
+
+- React: For building the user interface.
+- Next.js
+- JavaScript: The programming language used.
+- CSS Modules: For styling the components.
+- Ant Design: For the user interface components.
 
 ## Installation
 
 To get started with this project, follow these steps:
 
 1. **Clone the repository**:
-    ```sh
-    git clone https://github.com/itsnooshin/task-table-v1.git
-    ```
+
+   ```sh
+   git clone https://github.com/itsnooshin/task-table-v1.git
+   ```
 
 2. **Navigate to the project directory**:
-    ```sh
-    cd task-table-v1
-    ```
+
+   ```sh
+   cd task-table-v1
+   ```
 
 3. **Install the dependencies**:
-    ```sh
-    npm install
-    ```
+   ```sh
+   npm install
+   ```
 
 ## Usage
 
 Here's how you can use this project:
 
 1. **Start the development server**:
-    ```sh
-    npm run dev
-    ```
+
+   ```sh
+   npm run dev
+   ```
 
 2. **Open your browser and go to** `http://localhost:3000` **to view the application**.
-
-
-
-
-
 
 ## License
 
