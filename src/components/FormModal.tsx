@@ -1,26 +1,13 @@
 import React, { useState } from "react";
-import Styles from "../app/page.module.css";
-
-import { message } from "antd";
-import {
-  Button,
-  Divider,
-  Form,
-  Input,
-  Modal,
-  Select,
-  Typography,
-  Tabs,
-} from "antd";
+import { InputNumber, message } from "antd";
+import { Button, Form, Input, Modal, Select, Typography, Tabs } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import type { InputNumberProps } from "antd";
 import type { SelectProps } from "antd";
-const { Text } = Typography;
 
 const App = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [toastVisible, setToastVisible] = useState(false);
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -172,7 +159,18 @@ const App = () => {
                     },
                   ]}
                 >
-                  <Input suffix="ریال" type="number" />
+                  <InputNumber
+                    min={0}
+                    size="large"
+                    style={{ width: "100%" }}
+                    formatter={(value) =>
+                      `${value}`.replace(
+                        new RegExp(/\B(?=(\d{3})+(?!\d))/g),
+                        ","
+                      )
+                    }
+                    suffix="ریال"
+                  />
                 </Form.Item>
                 <Form.Item name="description" label=" توضیحات (بابت)">
                   <TextArea maxLength={100} />
