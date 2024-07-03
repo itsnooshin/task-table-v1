@@ -17,17 +17,15 @@ const DisplayModal = () => {
   const handleOk = async () => {
     try {
       await form.validateFields();
-
       setLoading(true);
       setOpen(false);
-
       setTimeout(() => {
         setLoading(false);
-        messageApi.success("اعتبارسنجی کامل شد! فرم آماده ارسال است.");
+        messageApi.success("ثبت درخواست تسویه با موفقیت انجام شد");
         form.resetFields();
-      });
+      }, 1000);
     } catch (errorInfo) {
-      console.log("Failed:", errorInfo);
+      messageApi.error('ثبت درخواست تسویه با ارور مواجه شد ')
     }
   };
 
