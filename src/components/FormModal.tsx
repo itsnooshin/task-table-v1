@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { InputNumber, message } from "antd";
 import { Button, Form, Input, Modal, Select, Typography, Tabs } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import type { InputNumberProps } from "antd";
 import type { SelectProps } from "antd";
 
 const App = () => {
@@ -42,18 +41,10 @@ const App = () => {
     { value: "کیف پول تسویه", label: "کیف پول تسویه" },
   ];
 
-  const onChange: InputNumberProps["onChange"] = (value) => {
-    console.log("changed", value);
-  };
-
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Open Modal with customized footer
+        تسویه حساب پول{" "}
       </Button>
       <Modal
         open={open}
@@ -65,6 +56,8 @@ const App = () => {
               padding: "10px",
               alignItems: "center",
               gap: "6px",
+              paddingBottom: "1.5rem",
+              paddingTop: "1rem",
             }}
           >
             <Typography> تسویه کیف پول</Typography>
@@ -109,6 +102,8 @@ const App = () => {
               alignItems: "center",
               justifyContent: "start",
               gap: "6px",
+              borderBottom: "1px solid #f0f0f0",
+              marginBottom: "1.5rem",
             }}
           >
             <Typography style={{ color: "#3D3ADD", fontSize: "1.6rem" }}>
@@ -121,8 +116,7 @@ const App = () => {
           <Tabs
             defaultActiveKey="1"
             type="card"
-            style={{ border: "none" }}
-            tabBarStyle={{ border: "none" }}
+            style={{ border: "none", marginTop: "1rem" }}
             tabBarGutter={0}
           >
             <Tabs.TabPane tab="به حساب" key="1">
@@ -145,7 +139,6 @@ const App = () => {
                   <Select
                     style={{ width: "100%" }}
                     placeholder="انتخاب شماره شبا یا ورود شبا جدید"
-                    onChange={handleChange}
                     options={options}
                   />
                 </Form.Item>
@@ -197,7 +190,6 @@ const App = () => {
                   <Select
                     style={{ width: "100%" }}
                     placeholder="انتخاب شماره شبا یا ورود شبا جدید"
-                    onChange={handleChange}
                     options={options}
                   />
                 </Form.Item>
@@ -211,7 +203,7 @@ const App = () => {
                     },
                   ]}
                 >
-                  <Input suffix="ریال" />
+                  <Input suffix="ریال" type="number" inputMode="numeric"  />
                 </Form.Item>
                 <Form.Item
                   name="descriptionWallet"

@@ -6,9 +6,12 @@ span {
   background-color: #fafafa;
 }
 
+.ant-modal .ant-modal-content {
+  padding: 0 !important;
+}
 .ant-tabs-top > .ant-tabs-nav::before,
 .ant-tabs-bottom > .ant-tabs-nav::before,
 .ant-tabs-top > div > .ant-tabs-nav::before,
 .ant-tabs-bottom > div > .ant-tabs-nav::before {
-  left: none;
+  left: unset !important;
 }

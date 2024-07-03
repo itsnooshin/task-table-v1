@@ -62,9 +62,6 @@ const themeConfig: ThemeConfig = {
       headerBg: "#F0F0F0",
       fontFamily: dana.style.fontFamily,
     },
-    Modal: {
-      contentPadding: 0,
-    },
   },
 };
 

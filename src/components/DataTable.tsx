@@ -7,8 +7,14 @@ import Highlighter from "react-highlight-words";
 import styles from "@/app/page.module.css";
 import { DisplayPersianDate } from "@/utilities/displayPersianDate";
 import IconBank from "./IconBank";
-import { ColumnsType } from "antd/es/table";
-import FormModal from "./FormModal";
+import { ColumnsType, ColumnType } from "antd/es/table";
+import DisplayModal from "./FormModal";
+import {
+  FilterValue,
+  SorterResult,
+  TableCurrentDataSource,
+  TablePaginationConfig,
+} from "antd/es/table/interface";
 
 interface DataType {
   key: string;
@@ -18,9 +24,6 @@ interface DataType {
   amount: number;
   cardNumber: string;
 }
-
-type CustomColumnType = ColumnType<DataType> &
-  ReturnType<typeof getColumnSearchProps>;
 
 const data: DataType[] = [
   {
@@ -185,19 +188,19 @@ const data: DataType[] = [
   },
 ];
 
-const DataTable = () => {
+const DataTable: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState<keyof DataType | "">("");
   const [filteredDataCount, setFilteredDataCount] = useState(data.length);
   const searchInput = useRef<InputRef>(null);
 
   const handleSearch = (
-    selectedKeys: string[],
+    selectedKeys: React.Key[],
     confirm: (param?: any) => void,
     dataIndex: keyof DataType
   ) => {
     confirm();
-    setSearchText(selectedKeys[0]);
+    setSearchText(selectedKeys[0] as string);
     setSearchedColumn(dataIndex);
   };
 
@@ -206,19 +209,15 @@ const DataTable = () => {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (dataIndex: keyof DataType) => ({
+  const getColumnSearchProps = (
+    dataIndex: keyof DataType
+  ): ColumnType<DataType> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
       confirm,
       clearFilters,
       close,
-    }: {
-      setSelectedKeys: (param: string[]) => void;
-      selectedKeys: string[];
-      confirm: (param?: any) => void;
-      clearFilters?: () => void;
-      close: () => void;
     }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -226,7 +225,7 @@ const DataTable = () => {
           placeholder={`سرچ ${
             dataIndex === "trackId" ? "شماره تراکنش" : "شماره کارت"
           }`}
-          value={selectedKeys[0]}
+          value={selectedKeys[0] as string}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
           }
@@ -265,8 +264,11 @@ const DataTable = () => {
         }}
       />
     ),
-    onFilter: (value: string, record: DataType) =>
-      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        .toString()
+        .toLowerCase()
+        .includes(value.toString().toLowerCase()),
     onFilterDropdownOpenChange: (visible: boolean) => {
       if (visible) {
         setTimeout(() => searchInput.current?.select(), 100);
@@ -285,7 +287,7 @@ const DataTable = () => {
       ),
   });
 
-  const columns = [
+  const columns: ColumnsType<DataType> = [
     {
       title: "شماره تراکنش",
       dataIndex: "trackId",
@@ -347,10 +349,10 @@ const DataTable = () => {
   ];
 
   const handleTableChange = (
-    pagination: any,
-    filters: any,
-    sorter: any,
-    extra: any
+    pagination: TablePaginationConfig,
+    filters: Record<string, FilterValue | null>,
+    sorter: SorterResult<DataType> | SorterResult<DataType>[],
+    extra: TableCurrentDataSource<DataType>
   ) => {
     setFilteredDataCount(extra.currentDataSource.length);
   };
@@ -369,7 +371,7 @@ const DataTable = () => {
         <Typography className={styles.result}>
           تعداد نتایج : {filteredDataCount}
         </Typography>
-        <FormModal />
+        <DisplayModal />
       </div>
     </div>
   );
