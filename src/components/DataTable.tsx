@@ -8,7 +8,7 @@ import styles from "@/app/page.module.css";
 import { DisplayPersianDate } from "@/utilities/displayPersianDate";
 import IconBank from "./IconBank";
 import { ColumnsType, ColumnType } from "antd/es/table";
-import DisplayModal from "./FormModal";
+import DisplayModal from "./DisplayModal";
 import {
   FilterValue,
   SorterResult,
@@ -188,7 +188,7 @@ const data: DataType[] = [
   },
 ];
 
-const DataTable: React.FC = () => {
+const DataTable = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState<keyof DataType | "">("");
   const [filteredDataCount, setFilteredDataCount] = useState(data.length);

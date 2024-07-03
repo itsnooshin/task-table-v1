@@ -4,7 +4,7 @@ import { Button, Form, Input, Modal, Select, Typography, Tabs } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import type { SelectProps } from "antd";
 
-const App = () => {
+const DisplayModal = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
@@ -203,7 +203,7 @@ const App = () => {
                     },
                   ]}
                 >
-                  <Input suffix="ریال" type="number" inputMode="numeric"  />
+                  <Input suffix="ریال" type="number" inputMode="numeric" />
                 </Form.Item>
                 <Form.Item
                   name="descriptionWallet"
@@ -227,4 +227,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default DisplayModal;
